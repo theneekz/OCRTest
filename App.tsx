@@ -8,107 +8,109 @@
  * @format
  */
 
-import React from 'react';
+import React, {useState} from 'react';
 import {
   SafeAreaView,
   ScrollView,
-  StatusBar,
   StyleSheet,
   Text,
-  useColorScheme,
+  TouchableOpacity,
   View,
 } from 'react-native';
+import ImagePicker from 'react-native-image-crop-picker';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import TesseractOcr, {
+  LANG_ENGLISH,
+  useEventListener,
+} from 'react-native-tesseract-ocr';
+
+const DEFAULT_HEIGHT = 500;
+const DEFAULT_WITH = 600;
+const defaultPickerOptions = {
+  cropping: true,
+  height: DEFAULT_HEIGHT,
+  width: DEFAULT_WITH,
+};
 
 const Section: React.FC<{
   title: string;
 }> = ({children, title}) => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
+  return <></>;
 };
 
 const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
+  const [text, setText] = useState<string>('text goes here');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [progress, setProgress] = useState<number>(0);
+  const [imgSrc, setImgSrc] = useState<any>(null);
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  const recognizeTextFromImage = async path => {
+    setIsLoading(true);
+
+    try {
+      const tesseractOptions = {};
+      const recognizedText = await TesseractOcr.recognize(
+        path,
+        LANG_ENGLISH,
+        tesseractOptions,
+      );
+      setText(recognizedText);
+    } catch (err) {
+      console.error(err);
+      setText('');
+    }
+
+    setIsLoading(false);
+    setProgress(0);
+  };
+
+  const recognizeFromPicker = async (options = defaultPickerOptions) => {
+    try {
+      const image = await ImagePicker.openPicker(options);
+      setImgSrc({uri: image.path});
+      await recognizeTextFromImage(image.path);
+    } catch (err: any) {
+      if (err.message !== 'User cancelled image selection') {
+        console.error(err);
+      }
+    }
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+    <SafeAreaView style={styles.container}>
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
+        style={styles.container}
+        contentContainerStyle={styles.contentContainer}>
+        <TouchableOpacity
+          onPress={() => {
+            recognizeFromPicker();
           }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
+          <View style={styles.uploadButton}>
+            <Text>Upload</Text>
+          </View>
+        </TouchableOpacity>
+        <Text>{text}</Text>
+        {isLoading === true && <Text>loading: {progress}%</Text>}
       </ScrollView>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  container: {
+    flex: 1,
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  contentContainer: {
+    flex: 1,
+    marginHorizontal: '5%',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
+  uploadButton: {
+    borderWidth: 1,
+    borderRadius: 10,
+    padding: 10,
   },
 });
 
