@@ -12,6 +12,8 @@ target 'OCRTest' do
     :hermes_enabled => false
   )
 
+  pod 'TesseractOCRiOS', '~> 5.0'
+
   target 'OCRTestTests' do
     inherit! :complete
     # Pods for testing

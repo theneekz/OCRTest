@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		004284A027191BF9004AA65C /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = 0042849F27191BF9004AA65C /* tessdata */; };
+		004284A327192826004AA65C /* RCTCalendarModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 004284A227192826004AA65C /* RCTCalendarModule.m */; };
+		004284A627192A84004AA65C /* OCR.m in Sources */ = {isa = PBXBuildFile; fileRef = 004284A527192A84004AA65C /* OCR.m */; };
 		00E356F31AD99517003FC87E /* OCRTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* OCRTestTests.m */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
@@ -27,6 +30,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0042849F27191BF9004AA65C /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
+		004284A1271927E5004AA65C /* RCTCalendarModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTCalendarModule.h; sourceTree = "<group>"; };
+		004284A227192826004AA65C /* RCTCalendarModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTCalendarModule.m; sourceTree = "<group>"; };
+		004284A427192A64004AA65C /* OCR.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OCR.h; sourceTree = "<group>"; };
+		004284A527192A84004AA65C /* OCR.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OCR.m; sourceTree = "<group>"; };
 		00E356EE1AD99517003FC87E /* OCRTestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OCRTestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* OCRTestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OCRTestTests.m; sourceTree = "<group>"; };
@@ -116,6 +124,11 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				004284A1271927E5004AA65C /* RCTCalendarModule.h */,
+				004284A227192826004AA65C /* RCTCalendarModule.m */,
+				004284A427192A64004AA65C /* OCR.h */,
+				004284A527192A84004AA65C /* OCR.m */,
+				0042849F27191BF9004AA65C /* tessdata */,
 				13B07FAE1A68108700A75B9A /* OCRTest */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* OCRTestTests */,
@@ -145,7 +158,6 @@
 				6C97AB639B58BBB4B15BBE30 /* Pods-OCRTest-OCRTestTests.debug.xcconfig */,
 				1D0AE47A65C8663E3B452821 /* Pods-OCRTest-OCRTestTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -243,6 +255,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				004284A027191BF9004AA65C /* tessdata in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);
@@ -411,6 +424,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				004284A627192A84004AA65C /* OCR.m in Sources */,
+				004284A327192826004AA65C /* RCTCalendarModule.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
@@ -484,7 +499,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 56JD85XC9P;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = OCRTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -496,8 +514,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.OCRTest.app;
 				PRODUCT_NAME = OCRTest;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -510,7 +529,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 56JD85XC9P;
 				INFOPLIST_FILE = OCRTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -521,8 +543,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.OCRTest.app;
 				PRODUCT_NAME = OCRTest;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

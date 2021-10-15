@@ -348,6 +348,7 @@ PODS:
     - React-Core
     - React-RCTImage
     - TOCropViewController
+  - TesseractOCRiOS (5.0.1)
   - TOCropViewController (2.6.0)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
@@ -408,6 +409,7 @@ DEPENDENCIES:
   - React-runtimeexecutor (from `../node_modules/react-native/ReactCommon/runtimeexecutor`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - RNImageCropPicker (from `../node_modules/react-native-image-crop-picker`)
+  - TesseractOCRiOS (~> 5.0)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -425,6 +427,7 @@ SPEC REPOS:
     - fmt
     - libevent
     - OpenSSL-Universal
+    - TesseractOCRiOS
     - TOCropViewController
     - YogaKit
 
@@ -539,10 +542,11 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: 4bb657a97aa74568d9ed634c8bd478299bb8a3a6
   ReactCommon: eb059748e842a1a86025ebbd4ac9d99e74492f88
   RNImageCropPicker: 73891a709e6fd8a47d32104d942757971f220aee
+  TesseractOCRiOS: 2c189465f86abb030d0c5141c90da9705b647854
   TOCropViewController: 3105367e808b7d3d886a74ff59bf4804e7d3ab38
   Yoga: c11abbf5809216c91fcd62f5571078b83d9b6720
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: c55bc7da639f4d299d0ba9b2f4e2ee6504b06cc8
+PODFILE CHECKSUM: 2a100e484e689702030f8878f3b8ada028027378
 
 COCOAPODS: 1.10.1
