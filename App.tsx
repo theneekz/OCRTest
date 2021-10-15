@@ -56,7 +56,7 @@ const App = () => {
   const recognizeFromPicker = async (options = defaultPickerOptions) => {
     try {
       const image: any = await ImagePicker.openPicker(options);
-      console.log(image);
+
       setImgSrc({uri: image.path});
       await recognizeTextFromImage(image.sourceURL, image.cropRect);
     } catch (err: any) {
@@ -117,6 +117,7 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'white',
   },
   contentContainer: {
     flex: 1,
