@@ -11,7 +11,9 @@
   },
   "dependencies": {
     "react": "17.0.2",
-    "react-native": "0.66.0"
+    "react-native": "0.66.0",
+    "react-native-image-crop-picker": "^0.36.4",
+    "react-native-tesseract-ocr": "^2.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
