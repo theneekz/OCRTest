@@ -1,14 +1,4 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
- */
-
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Image,
   NativeModules,
@@ -20,8 +10,8 @@ import {
   View,
 } from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
-import SampleImage from './sample_image.jpg';
-import Receipt from './Receipt.jpg';
+import SampleImage from './sample_image.jpg'; //testing only
+import Receipt from './Receipt.jpg'; //testing only
 
 const DEFAULT_HEIGHT = 500;
 const DEFAULT_WITH = 600;
@@ -38,15 +28,44 @@ type coords = {
   width: number;
 };
 
-//ex component in ts
-const Section: React.FC<{
-  title: string;
-}> = ({children, title}) => {
-  return <></>;
+interface item {
+  quantity: string;
+  item: string;
+  price: string;
+}
+
+const regex = /^\s*(\d+)\s+(.*\S)\s+(\(?)\$([0-9.]+)\)?\s*$/gm;
+
+const Breakdown: React.FC<{
+  allItems: item[];
+}> = ({allItems}) => {
+  return (
+    <View style={styles.breakdownContainer}>
+      <View style={styles.breakdownRow}>
+        <Text style={styles.leftText}>Quantity</Text>
+        <Text style={styles.centerText}>Description</Text>
+        <Text style={styles.rightText}>Price</Text>
+      </View>
+      {allItems.map((itemObj, index) => (
+        <Row key={`itemRow${index}`} item={itemObj} />
+      ))}
+    </View>
+  );
+};
+
+const Row: React.FC<{item: item}> = ({item: {quantity, item, price}}) => {
+  return (
+    <View style={styles.breakdownRow}>
+      <Text style={styles.leftText}>{quantity}</Text>
+      <Text style={styles.centerText}>{item}</Text>
+      <Text style={styles.rightText}>{price}</Text>
+    </View>
+  );
 };
 
 const App = () => {
-  const [text, setText] = useState<string>('text goes here');
+  const [text, setText] = useState<string>('Text goes here');
+  const [items, setItems] = useState<item[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [progress, setProgress] = useState<number>(0);
   const [imgSrc, setImgSrc] = useState<any>(null);
@@ -88,6 +107,41 @@ const App = () => {
     setProgress(0);
   };
 
+  useEffect(() => {
+    if (text !== 'Text goes here' && text !== 'Could not find text') {
+      getAndSetItems(text);
+    } else {
+      setItems([]);
+    }
+  }, [text]);
+
+  const getAndSetItems = (inputStr: string) => {
+    let items = [];
+    const matches = inputStr.matchAll(regex);
+    for (const matchedGroup of matches) {
+      const [
+        ignoredString, //[0] -> matched string "1 Blue gatorade $2.00"
+        quantity, //[1] -> quantity "1"
+        item, //[2] -> item description "Blue gatorade"
+        ignoredSymbol, //[3] -> "$" (should probably always ignore)
+        price, //[4] -> amount "2.00"
+      ] = matchedGroup;
+
+      items.push({
+        quantity,
+        item,
+        price,
+      });
+    }
+    setItems(items);
+  };
+
+  const getAndSetTax = (inputStr: string) => {
+    //todo
+    //find all indexes of 'tax'
+    //get slices from (indexOfTax, '\n')?
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView
@@ -102,13 +156,14 @@ const App = () => {
             <Text>Upload</Text>
           </View>
         </TouchableOpacity>
-        <Text>{text}</Text>
+        {/* <Text>{text}</Text> */}
         {isLoading === true && <Text>loading: {progress}%</Text>}
         {imgSrc && (
           <View style={styles.imageContainer}>
             <Image style={styles.image} source={imgSrc} />
           </View>
         )}
+        {items.length > 0 && <Breakdown allItems={items} />}
       </ScrollView>
     </SafeAreaView>
   );
@@ -138,6 +193,29 @@ const styles = StyleSheet.create({
     marginVertical: 15,
     height: DEFAULT_HEIGHT / 2.5,
     width: DEFAULT_WITH / 2.5,
+  },
+  breakdownContainer: {
+    width: '90%',
+    borderWidth: 1,
+    borderRadius: 10,
+    padding: 20,
+    minHeight: 200,
+  },
+  breakdownRow: {
+    flexDirection: 'row',
+    flex: 1,
+  },
+  leftText: {
+    flex: 1,
+    textAlign: 'left',
+  },
+  centerText: {
+    flex: 1,
+    textAlign: 'center',
+  },
+  rightText: {
+    flex: 1,
+    textAlign: 'right',
   },
 });
 
